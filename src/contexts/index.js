@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const DownloadImageContext = createContext("")
+export const GenerateImageContext = createContext("")
