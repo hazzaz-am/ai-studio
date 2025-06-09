@@ -1,7 +1,10 @@
+import { useModels } from "../../hooks/useModels";
 import { useGenerateImage } from "../../hooks/useProvider";
 
 export default function AImodels() {
   const { model, handleAiModel } = useGenerateImage()
+  const { models } = useModels()
+
   return (
     <div>
       <label htmlFor="model" className="block text-sm font-medium text-zinc-700 mb-1">Model</label>
@@ -10,8 +13,12 @@ export default function AImodels() {
         value={model}
         onChange={(e) => handleAiModel(e.target.value)}
       >
-        <option className="bg-zinc-900" defaultValue="flux">Flux</option>
-        <option className="bg-zinc-900" value="turbo">Turbo</option>
+        {
+          models.map((model) => (
+            <option key={model} className="bg-zinc-900 capitalize" value={model}>{model}</option>
+
+          ))
+        }
       </select>
     </div>
   );

@@ -1,19 +1,14 @@
 import { useGenerateImage } from "../../hooks/useProvider";
-import { getWidthHeight, presetsRatio } from "../../utils/image-ratio";
+import { presetsRatio } from "../../utils/image-ratio";
 import RatioButton from "./RatioButton";
 
 export default function RatioPresets() {
-  const {handleWidth, handleHeight} = useGenerateImage()
+  const { handleAspectRatioPreset, aspectRatio } = useGenerateImage()
+
 
   const renderRatioButtons = presetsRatio.map(preset => (
-    <RatioButton key={preset} value={preset} onClick={() => handleRatioSize(preset)} />
+    <RatioButton key={preset} value={preset} onClick={() => handleAspectRatioPreset(preset)} active={aspectRatio.ratio === preset} />
   ))
-
-  const handleRatioSize = (value) => {
-    const ratio = getWidthHeight(value)
-    handleHeight(ratio.height)
-    handleWidth(ratio.width)
-  }
 
   return (
     <div>

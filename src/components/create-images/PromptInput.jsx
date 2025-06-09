@@ -3,7 +3,7 @@ import SendIcon from "../../svg-icons/SendIcon";
 import { useGenerateImage } from "../../hooks/useProvider";
 
 export default function PromptInput() {
-  const { promptMessage, handlePromptMessage } = useGenerateImage()
+  const { promptMessage, handlePromptMessage, generateImages } = useGenerateImage()
 
   return (
     <div
@@ -17,7 +17,7 @@ export default function PromptInput() {
           value={promptMessage}
           onChange={(e) => handlePromptMessage(e.target.value)}
         />
-        <button className="bg-zinc-800 hover:bg-zinc-700 transition-colors p-4 mr-1 rounded-full">
+        <button onClick={generateImages} className="bg-zinc-800 hover:bg-zinc-700 transition-colors p-4 mr-1 rounded-full cursor-pointer">
           <SendIcon />
         </button>
       </div>

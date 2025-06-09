@@ -4,7 +4,7 @@ import RatioPresets from "./RatioPresets";
 import { useGenerateImage } from "../../hooks/useProvider";
 
 export default function SettingsPanel() {
-  const { width, height, handleWidth, handleHeight, } = useGenerateImage()
+  const { aspectRatio, handleCustomWidth, handleCustomHeight, } = useGenerateImage()
 
   return (
     <div className="border border-zinc-700/70 mb-6 rounded-lg p-4">
@@ -18,9 +18,9 @@ export default function SettingsPanel() {
 
         <FormControl type="number" id="seed" label="Seed (for reproducible results)" disabled={true} placeholder="Random" />
 
-        <FormControl type="number" id="width" label="Width" value={width} onChange={(e) => handleWidth(e.target.value)} />
+        <FormControl type="number" id="width" label="Width" value={aspectRatio.width} onChange={(e) => handleCustomWidth(e.target.value)} />
 
-        <FormControl type="number" id="height" label="Height" value={height} onChange={(e) => handleHeight(e.target.value)} />
+        <FormControl type="number" id="height" label="Height" value={aspectRatio.height} onChange={(e) => handleCustomHeight(e.target.value)} />
 
         <RatioPresets />
 
