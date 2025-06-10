@@ -25,13 +25,13 @@ AI Studio is a prompt-based image generator web app built with React. It leverag
 
 ## Features
 
-🔍 **Prompt-based generation** — Generate AI images from any text prompt.
-🧠 **Model selection** — Choose from different AI models for creative variety.
-⚙️ **Advanced settings** — Adjust image width, height, and use preset aspect ratios (1:1, 4:3, 16:9, etc).
-💾 **Download manager** — Download generated images and save them to a "Downloaded" page with persistence.
-⚠️ **Error handling** — Handles timeouts or load failures with clear visual indicators.
-📦 **Local caching** — Caches downloaded images using localStorage.
-🔔 **Toast notifications** — Provides user feedback via toasts for prompt errors or settings issues.
+- 🔍 **Prompt-based generation** — Generate AI images from any text prompt.
+- 🧠 **Model selection** — Choose from different AI models for creative variety.
+- ⚙️ **Advanced settings** — Adjust image width, height, and use preset aspect ratios (1:1, 4:3, 16:9, etc).
+- 💾 **Download manager** — Download generated images and save them to a "Downloaded" page with persistence.
+- ⚠️ **Error handling** — Handles timeouts or load failures with clear visual indicators.
+- 📦 **Local caching** — Caches downloaded images using localStorage.
+- 🔔 **Toast notifications** — Provides user feedback via toasts for prompt errors or settings issues.
 
 ---
 
