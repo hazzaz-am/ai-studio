@@ -6,14 +6,13 @@ import { toastMessage } from "../utils/toast-message";
 
 export default function GenerateImageProvider({ children }) {
   const [images, setImages] = useState([]);
-
   const [promptMessage, setPromptMessage] = useState("");
+  const [model, setModel] = useState("Flux");
   const [aspectRatio, setAspectRatio] = useState({
     width: "1024",
     height: "1024",
     ratio: "1:1"
   })
-  const [model, setModel] = useState("Flux");
 
   const handlePromptMessage = (value) => {
     setPromptMessage(value)
@@ -111,7 +110,7 @@ export default function GenerateImageProvider({ children }) {
       handleCustomHeight,
       handleAiModel,
       handleAspectRatioPreset,
-      generateImages
+      generateImages,
     }}>
       {children}
     </GenerateImageContext.Provider>
