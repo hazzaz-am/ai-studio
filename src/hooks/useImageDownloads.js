@@ -28,5 +28,10 @@ export const useImageDownloads = () => {
 		});
 	};
 
-	return { downloadedImages, addDownloadedImage };
+    const clearDownloads = () => {
+			localStorage.removeItem(STORAGE_KEY);
+			setDownloadedImages([]);
+		};
+
+	return { downloadedImages, addDownloadedImage, clearDownloads };
 };

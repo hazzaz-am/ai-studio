@@ -15,8 +15,7 @@ export default function AImodels() {
       >
         {
           models.map((model) => (
-            <option key={model} className="bg-zinc-900 capitalize" value={model}>{model}</option>
-
+            <option key={model} className="bg-zinc-900" value={model}>{model}</option>
           ))
         }
       </select>

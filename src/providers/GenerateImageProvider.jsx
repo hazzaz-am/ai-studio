@@ -7,7 +7,7 @@ import { toastMessage } from "../utils/toast-message";
 export default function GenerateImageProvider({ children }) {
   const [images, setImages] = useState([]);
   const [promptMessage, setPromptMessage] = useState("");
-  const [model, setModel] = useState("Flux");
+  const [model, setModel] = useState("flux");
   const [aspectRatio, setAspectRatio] = useState({
     width: "1024",
     height: "1024",
@@ -44,15 +44,16 @@ export default function GenerateImageProvider({ children }) {
   }
 
   const generateImages = async () => {
-    if (promptMessage.trim().length === 0) {
-      toastMessage("Please enter a prompt to generate an image", "error")
-      return
+    if (!promptMessage?.trim()) {
+      toastMessage("Please enter a prompt to generate an image", "error");
+      return;
     }
 
-    if (aspectRatio.ratio.trim().length === 0) {
-      toastMessage("Please select a ratio to generate an image", "error")
-      return
+    if (!aspectRatio.ratio?.trim()) {
+      toastMessage("Please select a ratio to generate an image", "error");
+      return;
     }
+
     const initialImages = Array.from({ length: 9 }).map(() => ({
       id: crypto.randomUUID(),
       url: "",
@@ -84,8 +85,7 @@ export default function GenerateImageProvider({ children }) {
               : img
           )
         );
-      } catch (error) {
-        console.log(error)
+      } catch {
         setImages((prev) =>
           prev.map((img, index) =>
             index === i

@@ -1,13 +1,9 @@
-
 import { useGenerateImage } from "../../hooks/useProvider";
 import PresetImage from "../PresetImage";
 
 
 export default function ImagePresets() {
-
   const { images } = useGenerateImage()
-
-
 
   return (
     <div>

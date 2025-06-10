@@ -34,7 +34,7 @@ export default function PresetImage({ image }) {
     <div className="image-card rounded-xl overflow-hidden cursor-pointer relative">
       {
         image.status === "success" && (
-          <button className="absolute bottom-2 right-2 p-1 cursor-pointer" onClick={handleDownload}>
+          <button className="absolute bottom-2 right-2 p-1 cursor-pointer" onClick={handleDownload} title="Download image">
             <DownloadIcon />
           </button>
         )
