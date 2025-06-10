@@ -2,6 +2,7 @@ import { useImageDownloads } from "../hooks/useImageDownloads";
 import DownloadIcon from "../svg-icons/DownloadIcon";
 import ErrorIcon from "../svg-icons/ErrorIcon";
 import LoadingIcon from "../svg-icons/LoadingIcon";
+import { toastMessage } from "../utils/toast-message";
 
 export default function PresetImage({ image }) {
   const { addDownloadedImage } = useImageDownloads()
@@ -13,7 +14,6 @@ export default function PresetImage({ image }) {
       const blob = await response.blob();
       const fileName = `${image.id}.jpg`;
 
-      // download image
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -23,10 +23,13 @@ export default function PresetImage({ image }) {
       a.remove();
       window.URL.revokeObjectURL(url);
 
-      // Save image in localStorage (if not already present)
       addDownloadedImage({ id: image.id, url: image.url, status: "success" });
     } catch (err) {
-      console.error("Download failed:", err);
+      if (err instanceof Error) {
+        toastMessage(err.message, "error")
+      } else {
+        toastMessage("Something Wrong", "error")
+      }
     }
   };
 

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { GenerateImageContext } from "../contexts";
 import { detectRatio, getWidthHeight } from "../utils/image-ratio";
 import { generateSeed } from "../utils/generateSeed";
 import { toastMessage } from "../utils/toast-message";
+import { loadImageWithTimeout } from "../utils/time-out";
 
 export default function GenerateImageProvider({ children }) {
+  
   const [images, setImages] = useState([]);
   const [promptMessage, setPromptMessage] = useState("");
   const [model, setModel] = useState("flux");
@@ -13,6 +15,7 @@ export default function GenerateImageProvider({ children }) {
     height: "1024",
     ratio: "1:1"
   })
+  const generationIdRef = useRef(0);
 
   const handlePromptMessage = (value) => {
     setPromptMessage(value)
@@ -44,6 +47,9 @@ export default function GenerateImageProvider({ children }) {
   }
 
   const generateImages = async () => {
+    generationIdRef.current += 1;
+    const currentGenId = generationIdRef.current;
+
     if (!promptMessage?.trim()) {
       toastMessage("Please enter a prompt to generate an image", "error");
       return;
@@ -59,24 +65,23 @@ export default function GenerateImageProvider({ children }) {
       url: "",
       status: "loading",
     }));
+
     setImages(initialImages);
 
     for (let i = 0; i < 9; i++) {
+      if (generationIdRef.current !== currentGenId) return;
+
       const seed = generateSeed();
       const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(promptMessage)}?seed=${seed}&model=${model}&width=${aspectRatio.width}&height=${aspectRatio.height}&nologo=true`;
-
 
       if (i !== 0) {
         await new Promise((resolve) => setTimeout(resolve, 5000));
       }
 
       try {
-        await new Promise((resolve, reject) => {
-          const img = new Image();
-          img.src = url;
-          img.onload = resolve;
-          img.onerror = reject;
-        });
+        await loadImageWithTimeout(url); 
+
+        if (generationIdRef.current !== currentGenId) return;
 
         setImages((prev) =>
           prev.map((img, index) =>
@@ -86,6 +91,9 @@ export default function GenerateImageProvider({ children }) {
           )
         );
       } catch {
+
+        if (generationIdRef.current !== currentGenId) return;
+
         setImages((prev) =>
           prev.map((img, index) =>
             index === i
@@ -96,7 +104,6 @@ export default function GenerateImageProvider({ children }) {
       }
     }
   };
-
 
   return (
     <GenerateImageContext.Provider value={{
